@@ -1,7 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+   experimental: {
+    serverActions: {}
+  },
+  serverExternalPackages: ['mongoose'],
+  //serverExternalPackages is the current valid config for external packages in server components.
+  images: {
+    domains: ['m.media-amazon.com']
+  }
 };
 
 export default nextConfig;
