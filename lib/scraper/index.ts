@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import axios from 'axios';
 import * as cheerio from 'cheerio'
-import { extractCurrency, extractPrice } from '../utils';
+import { extractCurrency, extractDescription, extractPrice } from '../utils';
+import { Average } from 'next/font/google';
 export async function scrapeAmazonProduct(url:string){
     if(!url) return;
     //bright data proxy configuration
@@ -47,22 +48,27 @@ export async function scrapeAmazonProduct(url:string){
       const imageURLS=Object.keys(JSON.parse(images));
       const currency=extractCurrency($('.a-price-symbol')) //$ or euro or ...
       const discountRate = $('.savingsPercentage').text().replace(/[-%]/g, "");
+      const description=extractDescription($); //we pass the enire $ because it's hard to parse the description
       //const description = extractDescription($)
-    console.log({title});
+   /*  console.log({title});
     console.log("currentPrice",currentPrice,originalPrice,outOfStock,imageURLS,currency);
-    //construct data object with scraped information
+    */ //construct data object with scraped information
     const data={
         url,
         currency:currency,
         image:imageURLS[0],
         title,
-        currentPrice:Number(currentPrice),
-        originalPrice:Number(originalPrice),
+        currentPrice:Number(currentPrice) || Number(originalPrice) ,
+        originalPrice:Number(originalPrice) || Number(currentPrice) ,
         priceHistry:[],
         discountRate:Number(discountRate),
         category:'category',
         reviewsCount:100,
         starts:4.5,
+        description,
+        lowerPrice:Number(currentPrice) || Number(originalPrice),
+        highestPrice:Number(originalPrice)|| Number(currentPrice),
+        AveragePrice:Number(originalPrice)|| Number(currentPrice),
         isOutOfStock:outOfStock
     }
     console.log(data);

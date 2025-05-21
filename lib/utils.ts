@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any *//* 
 export function extractPrice(...elements:any){
     for(const element of elements){
@@ -37,4 +38,8 @@ export function extractCurrency(element:any){
     return currencyText?currencyText:'' ;
 
 }
-export function extractDescription(){}
+export function extractDescription(element:any){
+    
+    
+
+}
