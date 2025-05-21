@@ -60,18 +60,19 @@ export async function scrapeAmazonProduct(url:string){
         title,
         currentPrice:Number(currentPrice) || Number(originalPrice) ,
         originalPrice:Number(originalPrice) || Number(currentPrice) ,
-        priceHistry:[],
+        priceHistory:[],
         discountRate:Number(discountRate),
         category:'category',
         reviewsCount:100,
-        starts:4.5,
+        stars:4.5,
         description,
-        lowerPrice:Number(currentPrice) || Number(originalPrice),
+        lowestPrice:Number(currentPrice) || Number(originalPrice),
         highestPrice:Number(originalPrice)|| Number(currentPrice),
-        AveragePrice:Number(originalPrice)|| Number(currentPrice),
+        averagePrice:Number(originalPrice)|| Number(currentPrice),
         isOutOfStock:outOfStock
     }
     console.log(data);
+    return data;
 
 
     }
