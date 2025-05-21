@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client" //beacuse we're using interactivity
 import React, { FormEvent, useState } from 'react'
+import { scrapeAndStoreProduct } from '../lib/actions';
 const isValidAmazonProductURL=(url:string)=>{
     try{
         const parsedUrl=new URL(url);
@@ -12,6 +14,7 @@ const isValidAmazonProductURL=(url:string)=>{
 
     }
     catch(error) {
+        console.log(error)
         return false;
     }
     return false;
@@ -21,7 +24,7 @@ const isValidAmazonProductURL=(url:string)=>{
 const Searchbar = () => {
     const [searchPrompt,setSearchPrompt] =useState('');//This allows your component to remember values and re-render when they change.
     const [isLoading,setIsLoading]=useState(false);
-    const handleSubmit=(event:FormEvent<HTMLFormElement>)=>{
+    const handleSubmit= async (event:FormEvent<HTMLFormElement>)=>{
         event.preventDefault();
         const isValidLink=isValidAmazonProductURL(searchPrompt);
         alert(isValidLink? 'valid link' : 'invalid link');
@@ -29,6 +32,7 @@ const Searchbar = () => {
         try{
             setIsLoading(true);
             //scrape the producrt page
+            const product =await scrapeAndStoreProduct(searchPrompt);
         }
         catch(error){
             console.log(error);
