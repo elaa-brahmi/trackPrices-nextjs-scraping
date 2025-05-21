@@ -64,3 +64,13 @@ export async function getProductById(productId:string){
         throw new Error(` error fetching product by id ${error.message}`);
     }
 }
+export async function getAllProducts(){
+    try{
+       connectToDB(); 
+       const products=Product.find();
+       return products
+    }
+     catch(error:any){
+        throw new Error(` error fetching product by id ${error.message}`);
+    }
+}
