@@ -64,10 +64,8 @@ export async function scrapeAmazonProduct(url:string){
         reviewsCount:100,
         starts:4.5,
         isOutOfStock:outOfStock
-
-
-
     }
+    console.log(data);
 
 
     }
