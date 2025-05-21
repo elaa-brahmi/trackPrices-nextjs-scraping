@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import axios from 'axios';
 import * as cheerio from 'cheerio'
-import { extractPrice } from '../utils';
+import { extractCurrency, extractPrice } from '../utils';
 export async function scrapeAmazonProduct(url:string){
     if(!url) return;
     //bright data proxy configuration
@@ -25,11 +26,49 @@ export async function scrapeAmazonProduct(url:string){
      //   console.log(response.data)
         //extract the product title
         const title=$('#productTitle').text().trim();//You (the developer) must know or inspect the HTML structure of the Amazon product page to find the correct selector for the product title.
-        const currentPrice=extractPrice(
-            $('li.swatch-list-item-text inline-twister-swatch a-declarative desktop-twister-dim-row-0 span.a-list-item span#size_name_1 div.a-section dimension-slot-info span#_price span.olpWrapper a-size-small')
-           
-        ); // when we not sure about the price tag or we have many price tags
-        console.log({title},currentPrice);
+       const currentPrice = extractPrice(
+      $('.priceToPay span.a-price-whole'),
+      $('.a.size.base.a-color-price'),
+      $('.a-button-selected .a-color-base'),
+    );
+
+    const originalPrice = extractPrice(
+      $('#priceblock_ourprice'),
+      $('.a-price.a-text-price span.a-offscreen'),
+      $('#listPrice'),
+      $('#priceblock_dealprice'),
+      $('.a-size-base.a-color-price')
+    );
+    const outOfStock=$('#availability span').text().trim().toLowerCase() === 'currently unavailable';
+    const images = 
+      $('#imgBlkFront').attr('data-a-dynamic-image') || 
+      $('#landingImage').attr('data-a-dynamic-image') ||
+      '{}'
+      const imageURLS=Object.keys(JSON.parse(images));
+      const currency=extractCurrency($('.a-price-symbol')) //$ or euro or ...
+      const discountRate = $('.savingsPercentage').text().replace(/[-%]/g, "");
+      //const description = extractDescription($)
+    console.log({title});
+    console.log("currentPrice",currentPrice,originalPrice,outOfStock,imageURLS,currency);
+    //construct data object with scraped information
+    const data={
+        url,
+        currency:currency,
+        image:imageURLS[0],
+        title,
+        currentPrice:Number(currentPrice),
+        originalPrice:Number(originalPrice),
+        priceHistry:[],
+        discountRate:Number(discountRate),
+        category:'category',
+        reviewsCount:100,
+        starts:4.5,
+        isOutOfStock:outOfStock
+
+
+
+    }
+
 
     }
     catch(error: unknown){
