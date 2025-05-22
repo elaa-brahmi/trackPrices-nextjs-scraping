@@ -13,7 +13,7 @@ type Props={
 }
 const ProductDetails = async (props:Props) => {
   //Accept props as a whole, then destructure params and id inside the function body
-  const {id}=props.params;
+  const {id}=await props.params;
   const product:Product=await getProductById(id);
   const similarProducts=await getSimilarProducts(id);
   if(!product) redirect('/');

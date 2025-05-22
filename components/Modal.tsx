@@ -35,7 +35,7 @@ const Modal = ({ productId }: Props) => {
       <Dialog as="div" onClose={closeModel} className="dialog-container">
         <div className="min-h-screen px-4 txt-center">
             <Transition.Child
-                as={Fragment}
+                as="div"
                 enter="ease-out duration-300"
                 enterFrom="opacity-0"
                 enterTo="opacity-100"
@@ -48,7 +48,7 @@ const Modal = ({ productId }: Props) => {
                 <span className="inline-block h-screen align-middle"
                  aria-hidden="true"/>
                  <Transition.Child
-                    as={Fragment}
+                    as="div"
                     enter="ease-out duration-300"
                     enterFrom="opacity-0 scale-95"
                     enterTo="opacity-100 scale-100"
