@@ -16,6 +16,7 @@ const home = async () => {
 
       <div className="flex max-xl:flex-col gap-16" >
         <div className="flex flex-col justify-center">
+         
           <p className="small-text">
             smart shopping starts here:
             <Image src="/assets/icons/arrow-right.svg" 
