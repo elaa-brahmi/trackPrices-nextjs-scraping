@@ -7,6 +7,7 @@ import { Product } from '../../../../lib/types';
 import { formatNumber } from "../../../../lib/utils";
 import PriceCard from '../../../../components/PriceCard';
 import ProductCard from '../../../../components/ProductCard';
+import Modal from '../../../../components/Modal';
 type Props={
   params:{id:string}
 }
@@ -140,7 +141,7 @@ const ProductDetails = async (props:Props) => {
 
             </div>
           </div>
-          Modal
+          <Modal/>
 
         </div>
       </div>
