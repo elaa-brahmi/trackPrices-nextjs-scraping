@@ -43,7 +43,7 @@ export async function scrapeAndStoreProduct(productUrl:string){
             product,
             {upsert:true,new:true} //if it does not exist it will create one in the database
         )
-        //revalidatePath(`/products/${newProduct._id}`);
+        revalidatePath(`/products/${newProduct._id}`);//It makes sure the product page shows the most recent information after changes in the database.
     }
     catch(error:any){
         throw new Error(`failed to create/update product :${error.message}`)
@@ -74,7 +74,7 @@ export async function getAllProducts(){
         throw new Error(` error fetching product by id ${error.message}`);
     }
 }
-
+// need more refinement
 export async function getSimilarProducts(productId:string){
     try{
        connectToDB(); 

@@ -1,16 +1,20 @@
 import React from 'react'
-import { getProductById } from '../../../../lib/actions';
+import { getProductById,getSimilarProducts} from '../../../../lib/actions';
 import {redirect} from "next/navigation";
 import Image from "next/image"
 import Link from 'next/link';
 import { Product } from '../../../../lib/types';
 import { formatNumber } from "../../../../lib/utils";
 import PriceCard from '../../../../components/PriceCard';
+import ProductCard from '../../../../components/ProductCard';
 type Props={
   params:{id:string}
 }
-const ProductDetails = async ({params:{id}}:Props) => {
+const ProductDetails = async (props:Props) => {
+  //Accept props as a whole, then destructure params and id inside the function body
+  const {id}=props.params;
   const product:Product=await getProductById(id);
+  const similarProducts=await getSimilarProducts(id);
   if(!product) redirect('/');
   return (
     <div className="product-container">
@@ -136,11 +140,11 @@ const ProductDetails = async ({params:{id}}:Props) => {
 
             </div>
           </div>
-          <Modal/>
+          Modal
 
         </div>
       </div>
-        <div className="flex flex-col gap-16 border-2 border-red-500">
+        <div className="flex flex-col gap-16 ">
           <div className="flex flex-col gap-5">
             <h3 className="text-2xl text-secondary font-semibold">
               Product description</h3>
@@ -162,8 +166,25 @@ const ProductDetails = async ({params:{id}}:Props) => {
                     Buy Now
                   </Link>
           </button>
-
         </div>
+        {similarProducts && similarProducts?.length>0 && (
+          <div className="py-14 flex flex-col gap-2 w-full">
+            <p className="section-text">Similar products</p>
+            <div className="flex flex-wrap gap-10 mt-7w-full ">
+              {similarProducts.map((product)=>(
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                
+                />
+
+              ))}
+            </div>
+
+          </div>
+
+        )}
+
 
     </div>
   </div>
