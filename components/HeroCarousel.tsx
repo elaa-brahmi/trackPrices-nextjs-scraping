@@ -12,7 +12,7 @@ const heroImages=[
 ]
 const HeroCarousel = () => {
   return (
-    <div className='hero-carousel'>
+    <div className='relative sm:px-10 py-5 sm:pt-20 pb-5 max-w-[560px] h-[700px] w-full bg-[#F2F4F7] rounded-[30px] sm:mx-auto'>
         <Carousel
         showThumbs={false}
         autoPlay

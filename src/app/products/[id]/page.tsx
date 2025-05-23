@@ -18,9 +18,9 @@ const ProductDetails = async (props:Props) => {
   const similarProducts=await getSimilarProducts(id);
   if(!product) redirect('/');
   return (
-    <div className="product-container">
+    <div className="flex flex-col gap-16 flex-wrap px-6 md:px-20 py-24">
       <div className="flex gap-28 xl:flex-row flex-col">
-        <div className="product-image">
+        <div className="flex-grow xl:max-w-[50%] max-w-full py-16 border border-[#CDDBFF] rounded-[17px]">
           <Image
             src={product.image}
             alt={product.title}
@@ -41,7 +41,7 @@ const ProductDetails = async (props:Props) => {
               </Link>
             </div>
             <div className="flex items-center gap-3">
-              <div className="product-hearts">
+              <div className="flex items-center gap-2 px-3 py-2 bg-[#FFF0F0] rounded-10">
                 <Image
                   src="/assets/icons/red-heart.svg"
                   alt="heart"
@@ -69,7 +69,7 @@ const ProductDetails = async (props:Props) => {
               </div>
             </div>
           </div>
-          <div className="product-info">
+          <div className="flex items-center flex-wrap gap-10 py-6 border-y border-y-[#E4E4E4]">
             <div className="flex flex-col gap-2">
               <p className="text-[34px] text-secondary font-bold">
                 {product.currency}{formatNumber(product.currentPrice)}
@@ -80,7 +80,7 @@ const ProductDetails = async (props:Props) => {
             </div>
             <div className="flex flex-col gap-4">
               <div className="flex gap-3">
-                <div className="product-stars">
+                <div className="flex items-center gap-2 px-3 py-2 bg-[#FBF3EA] rounded-[27px]">
                   <Image
                     src="/assets/icons/star.svg"
                     alt="star"
@@ -92,7 +92,7 @@ const ProductDetails = async (props:Props) => {
                     {product.stars || '25'}
                   </p>
                 </div>
-                <div className="product-reviews">
+                <div className="flex items-center gap-2 px-3 py-2 bg-white-200 rounded-[27px]">
                   <Image
                     src="/assets/icons/comment.svg"
                     alt="comment"
@@ -153,7 +153,7 @@ const ProductDetails = async (props:Props) => {
                 {product?.description?.split('\n')}
               </div>
           </div>
-          <button className="btn w-fit mx-auto flex items-center 
+          <button className="py-4 px-4 bg-secondary hover:bg-opacity-70 rounded-[30px] text-white text-lg font-semibold w-fit mx-auto flex items-center 
           justify-center gap-3 min-w-[200px]">
              <Image
                   src="/assets/icons/bag.svg"
@@ -170,7 +170,7 @@ const ProductDetails = async (props:Props) => {
         </div>
         {similarProducts && similarProducts?.length>0 && (
           <div className="py-14 flex flex-col gap-2 w-full">
-            <p className="section-text">Similar products</p>
+            <p className="text-secondary text-[32px] font-semibold">Similar products</p>
             <div className="flex flex-wrap gap-10 mt-7w-full ">
               {similarProducts.map((product)=>(
                 <ProductCard
